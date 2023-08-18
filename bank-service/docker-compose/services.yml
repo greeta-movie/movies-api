@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  bank-online-api:
+    image: ${GROUP_ID}/bank-online-api:${SERVICE_VERSION:-latest}
+    environment:
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/eazybank"  
+    ports:
+      - "8080:8080"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
+  bank-online-ui:
+    image: ${GROUP_ID}/bank-online-ui:latest
+    ports:
+      - "4200:4200"
+    networks:
+      - ${GLOBAL_NETWORK:-services}

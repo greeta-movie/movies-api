@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  keycloak-server:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION:-latest}
+    hostname: keycloak-server
+    ports:
+      - "8180:8080"
+    command:
+      - start-dev
+    environment:
+      - "KEYCLOAK_ADMIN=admin"
+      - "KEYCLOAK_ADMIN_PASSWORD=admin"
+      - "KC_DB=postgres"
+      - "KC_DB_URL_HOST=host.docker.internal"
+      - "KC_DB_DATABASE=keycloak"
+      - "KC_DB_USERNAME=postgres"
+      - "KC_DB_SCHEMA=keycloak"
+      - "KC_DB_PASSWORD=postgres"
+      - "KC_HOSTNAME=localhost"
+    networks:
+      - ${GLOBAL_NETWORK:-bank-online}

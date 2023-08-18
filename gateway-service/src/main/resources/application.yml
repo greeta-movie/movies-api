@@ -14,12 +14,6 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: employee
-          uri: lb://employee
-          predicates:
-            - Path=/employee/**
-          filters:
-            - RewritePath=/employee/(?<path>.*), /$\{path}
         - id: account-cmd
           uri: lb://account-cmd
           predicates:
@@ -32,19 +26,19 @@ spring:
             - Path=/account-query/**
           filters:
             - RewritePath=/account-query/(?<path>.*), /$\{path}
-        - id: bank
-          uri: lb://bank
+        - id: movie
+          uri: lb://movie
           predicates:
-            - Path=/bank/**
+            - Path=/movie/**
           filters:
-            - RewritePath=/bank/(?<path>.*), /$\{path}
+            - RewritePath=/movie/(?<path>.*), /$\{path}
   keycloak:
       server-url: http://keycloak-server:8080
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${spring.keycloak.server-url}/realms/bank-realm
+          issuer-uri: ${spring.keycloak.server-url}/realms/movie-realm
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
 jwt:
@@ -53,13 +47,9 @@ jwt:
       resource-id: bank-app
       principal-attribute: preferred_username
 
-account-app:
+movie-app:
   base-url: http://localhost:3000
-  redirect-url: ${account-app.base-url}/*
-
-bank-app:
-  base-url: http://localhost:3000
-  redirect-url: ${bank-app.base-url}/*
+  redirect-url: ${movie-app.base-url}/*
 
 logging:
   pattern: 

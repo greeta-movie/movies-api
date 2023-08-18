@@ -28,8 +28,6 @@
 
     <modules>
         <module>account-service</module>
-        <module>bank-service</module>
-        <module>employee-service</module>
         <module>movie-service</module>
         <module>gateway-service</module>
     </modules>

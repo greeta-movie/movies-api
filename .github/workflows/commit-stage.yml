@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_OWNER: greeta-bank
+  IMAGE_OWNER: greeta-movie
   VERSION: ${{ github.sha }}
 
 jobs:
@@ -37,14 +37,10 @@ jobs:
           mvn spring-boot:build-image -DskipTests \
             -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:${{ env.VERSION }}
           cd ../../          
-          cd bank-service
+          cd movie-service
           mvn spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/bank-service:${{ env.VERSION }}
+            -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/movie-service:${{ env.VERSION }}
           cd ../
-          cd employee-service
-          mvn spring-boot:build-image -DskipTests \
-            -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/employee-service:${{ env.VERSION }} 
-          cd ../         
           cd gateway-service
           mvn spring-boot:build-image -DskipTests \
             -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/gateway-service:${{ env.VERSION }}
@@ -59,8 +55,7 @@ jobs:
         run:  |
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-cmd-service:${{ env.VERSION }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:${{ env.VERSION }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/bank-service:${{ env.VERSION }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/employee-service:${{ env.VERSION }}
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/movie-service:${{ env.VERSION }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/gateway-service:${{ env.VERSION }}
       - name: Publish container image (latest)
         run: |
@@ -69,13 +64,10 @@ jobs:
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-cmd-service:latest
           docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:${{ env.VERSION }} \
             ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:latest          
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/bank-service:${{ env.VERSION }} \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/bank-service:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/bank-service:latest
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/employee-service:${{ env.VERSION }} \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/employee-service:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/employee-service:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/account-query-service:latest
+          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/movie-service:${{ env.VERSION }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/movie-service:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/movie-service:latest
           docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/gateway-service:${{ env.VERSION }} \
             ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/gateway-service:latest
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/gateway-service:latest

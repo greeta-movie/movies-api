@@ -21,6 +21,7 @@ public class WebSecurityConfig {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.GET, "", "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/**").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
                         .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                         .requestMatchers("/*/comments").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
                         .requestMatchers("/**", "/userextras/me").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)

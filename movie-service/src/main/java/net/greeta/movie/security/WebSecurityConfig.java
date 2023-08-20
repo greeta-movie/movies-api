@@ -22,10 +22,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.GET, "", "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-                        .requestMatchers("/*/comments").hasAnyRole(ERP_MANAGER, ERP_USER)
-                        .requestMatchers("/userextras/me").hasAnyRole(ERP_MANAGER, ERP_USER)
+                        .requestMatchers("/*/comments").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
+                        .requestMatchers("/userextras/me").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/", "/**").hasRole(ERP_MANAGER)
+                        .requestMatchers("/", "/**").hasRole(MOVIE_MANAGER)
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter)))
@@ -34,6 +34,6 @@ public class WebSecurityConfig {
                 .build();
     }
 
-    public static final String ERP_MANAGER = "ERP_MANAGER";
-    public static final String ERP_USER = "ERP_USER";
+    public static final String MOVIE_MANAGER = "MOVIE_MANAGER";
+    public static final String MOVIE_USER = "MOVIE_USER";
 }

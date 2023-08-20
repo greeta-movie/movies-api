@@ -23,9 +23,9 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "", "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                         .requestMatchers("/*/comments").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
-                        .requestMatchers("/userextras/me").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
+                        .requestMatchers("/*", "/userextras/me").hasAnyRole(MOVIE_MANAGER, MOVIE_USER)
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/", "/**").hasRole(MOVIE_MANAGER)
+                        .requestMatchers("", "/", "/**").hasRole(MOVIE_MANAGER)
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(
                         jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter)))

@@ -9,6 +9,6 @@ import lombok.Data;
 public class AddVoteRequest {
 
     @Schema(example = "10")
-    @Positive
+    @Positive //
     private int score;
 }

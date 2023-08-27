@@ -44,7 +44,7 @@ spring:
 jwt:
   auth:
     converter:
-      resource-id: bank-app
+      resource-id: movie-app
       principal-attribute: preferred_username
 
 movie-app:

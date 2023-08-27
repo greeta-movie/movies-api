@@ -1,5 +1,7 @@
 package net.greeta.movie.service;
 
+import lombok.val;
+import net.greeta.movie.client.VoteQueryClient;
 import net.greeta.movie.exception.UserExtraNotFoundException;
 import net.greeta.movie.model.UserExtra;
 import net.greeta.movie.repository.UserExtraRepository;
@@ -15,9 +17,13 @@ public class UserExtraServiceImpl implements UserExtraService {
 
     private final UserExtraRepository userExtraRepository;
 
+    private final VoteQueryClient voteQueryClient;
+
     @Override
     public UserExtra validateAndGetUserExtra(String username) {
-        return getUserExtra(username).orElseThrow(() -> new UserExtraNotFoundException(username));
+        val result = getUserExtra(username).orElseThrow(() -> new UserExtraNotFoundException(username));
+        result.setBalance(voteQueryClient.findUserBalanceById(username).getScore());
+        return result;
     }
 
     @Override

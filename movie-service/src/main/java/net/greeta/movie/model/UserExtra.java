@@ -3,6 +3,7 @@ package net.greeta.movie.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,8 @@ public class UserExtra {
     private String username;
     private String avatar;
     private List<Vote> votes = new ArrayList<>();
+    @Transient
+    private int balance;
 
     public UserExtra(String username) {
         this.username = username;

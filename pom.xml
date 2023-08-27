@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-        <module>account-service</module>
+        <module>vote-service</module>
         <module>movie-service</module>
         <module>gateway-service</module>
     </modules>
@@ -41,7 +41,7 @@
             </dependency>
             <dependency>
                 <groupId>net.greeta.movie</groupId>
-                <artifactId>account.common</artifactId>
+                <artifactId>vote.common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -66,6 +66,19 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

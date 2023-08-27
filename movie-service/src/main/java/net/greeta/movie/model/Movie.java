@@ -1,5 +1,6 @@
 package net.greeta.movie.model;
 
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,8 @@ public class Movie {
     private String poster;
     private List<Comment> comments = new ArrayList<>();
     private List<Vote> votes = new ArrayList<>();
+    @Transient
+    private int scoreCqrs;
 
     @Data
     @AllArgsConstructor

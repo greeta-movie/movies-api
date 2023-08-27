@@ -2,7 +2,6 @@ package net.greeta.movie.rest;
 
 import net.greeta.movie.mapper.MovieMapper;
 import net.greeta.movie.model.Movie;
-import net.greeta.movie.model.UserExtra;
 import net.greeta.movie.rest.dto.AddCommentRequest;
 import net.greeta.movie.rest.dto.AddVoteRequest;
 import net.greeta.movie.rest.dto.CreateMovieRequest;
@@ -11,7 +10,6 @@ import net.greeta.movie.rest.dto.UpdateMovieRequest;
 import net.greeta.movie.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.greeta.movie.service.UserExtraService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,7 +30,6 @@ public class MoviesController {
 
     private final MovieService movieService;
     private final MovieMapper movieMapper;
-    private final UserExtraService userExtraService;
 
     @GetMapping
     public List<MovieDto> getMovies() {
@@ -86,18 +82,6 @@ public class MoviesController {
     public MovieDto addMovieVote(@PathVariable String imdbId,
                                     @Valid @RequestBody AddVoteRequest addVoteRequest,
                                     JwtAuthenticationToken token) {
-        Movie movie = movieService.validateAndGetMovie(imdbId);
-        String username = token.getName();
-        Movie.Vote movieVote = new Movie.Vote(username, addVoteRequest.getScore(), LocalDateTime.now());
-        movie.getVotes().add(0, movieVote);
-        movie = movieService.saveMovie(movie);
-
-        UserExtra.Vote userVote = new UserExtra.Vote(username, addVoteRequest.getScore(), LocalDateTime.now());
-        Optional<UserExtra> userExtraOptional = userExtraService.getUserExtra(username);
-        UserExtra userExtra = userExtraOptional.orElseGet(() -> new UserExtra(username));
-        userExtra.getVotes().add(0, userVote);
-        userExtraService.saveUserExtra(userExtra);
-
-        return movieMapper.toMovieDto(movie);
+        return movieService.addMovieVote(imdbId, addVoteRequest, token);
     }
 }

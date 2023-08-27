@@ -16,10 +16,10 @@
     </properties>
 
     <modules>
-        <module>cqrs.core</module>
-        <module>vote.common</module>
-        <module>vote.cmd</module>
-        <module>vote.query</module>
+        <module>cqrs-core</module>
+        <module>vote-common</module>
+        <module>vote-query</module>
+        <module>vote-container</module>
     </modules>
 
 </project>

@@ -36,12 +36,17 @@
         <dependencies>
             <dependency>
                 <groupId>net.greeta.movie</groupId>
-                <artifactId>cqrs.core</artifactId>
+                <artifactId>cqrs-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>net.greeta.movie</groupId>
-                <artifactId>vote.common</artifactId>
+                <artifactId>vote-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.greeta.movie</groupId>
+                <artifactId>vote-query</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

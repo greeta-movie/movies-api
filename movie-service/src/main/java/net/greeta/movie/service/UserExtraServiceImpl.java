@@ -22,7 +22,7 @@ public class UserExtraServiceImpl implements UserExtraService {
     @Override
     public UserExtra validateAndGetUserExtra(String username) {
         val result = getUserExtra(username).orElseThrow(() -> new UserExtraNotFoundException(username));
-        result.setBalance(voteQueryClient.findUserBalanceById(username).getScore());
+        result.setBalance(voteQueryClient.findUserBalanceById(username).score());
         return result;
     }
 
